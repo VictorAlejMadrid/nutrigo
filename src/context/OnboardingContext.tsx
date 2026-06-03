@@ -8,6 +8,7 @@ export interface UserProfile {
   pesoKg?: number;
   objetivo?: string;
   restricoes?: string[];
+  restricoesOutras?: string;
   duracaoDias?: number;
 }
 
