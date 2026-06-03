@@ -1,0 +1,120 @@
+'use client';
+
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useOnboarding } from '@/context/OnboardingContext';
+import Button from './Button';
+import Input from './Input';
+import IconButton from './IconButton';
+
+const containerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: 'easeOut' },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: (custom: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: custom * 0.1, duration: 0.4 },
+  }),
+};
+
+export function ProfileStep2() {
+  const { profile, nextStep, prevStep, updateProfile } = useOnboarding();
+  const [peso, setPeso] = useState(profile.pesoKg || '');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const validatePeso = (value: string | number): boolean => {
+    const numPeso = parseFloat(value.toString());
+    if (!value || isNaN(numPeso)) {
+      setError('Informe seu peso');
+      return false;
+    }
+
+    setError('');
+    return true;
+  };
+
+  const handlePesoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPeso(value);
+    if (value) validatePeso(value);
+  };
+
+  const handleSubmit = async () => {
+    const numPeso = parseFloat(peso.toString());
+    if (!peso || isNaN(numPeso)) return;
+
+    setIsLoading(true);
+    updateProfile({ pesoKg: numPeso });
+
+    if (numPeso < 20) {
+      setError('Peso mínimo é 20kg');
+      return;
+    }
+
+    if (numPeso > 500) {
+      setError('Peso máximo é 500kg');
+      return;
+    }
+
+    setError('');
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    setIsLoading(false);
+    nextStep();
+  };
+
+  return (
+    <motion.div
+      className="w-full h-screen bg-white flex flex-col items-center justify-center px-6"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      {/* Indicador de progresso */}
+      <motion.div className="absolute top-8 text-center text-gray-500 text-sm" custom={0} variants={itemVariants} initial="hidden" animate="visible">
+        Passo 2 de 5
+      </motion.div>
+
+      {/* Título */}
+      <motion.h2
+        className="text-3xl font-bold text-center mb-12 mt-8 text-[#0C3527]"
+        custom={1}
+        variants={itemVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        Qual seu peso?
+      </motion.h2>
+
+      {/* Formulário */}
+      <motion.div className="w-full max-w-sm space-y-8" custom={2} variants={itemVariants} initial="hidden" animate="visible">
+        <Input
+          type="number"
+          value={peso}
+          onChange={handlePesoChange}
+          placeholder="Seu peso (kg)"
+          error={error ? error : undefined}
+          min={20}
+          max={500}
+          fullWidth
+        />
+
+        <Button type="submit" variant="primary" size="lg" fullWidth onClick={handleSubmit} disabled={isLoading}>
+          {isLoading ? 'Carregando...' : 'Continuar'}
+        </Button>
+      </motion.div>
+
+      {/* Botão de voltar */}
+      <IconButton onClick={prevStep} icon="arrow-left" position="bottom-left" variant="default" size="md" ariaLabel="Voltar para tela anterior" />
+    </motion.div>
+  );
+}
