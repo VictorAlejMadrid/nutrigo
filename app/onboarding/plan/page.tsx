@@ -5,10 +5,9 @@ import { motion } from 'framer-motion';
 import { Button } from '../../../components/ui/button';
 import { useProfileStore } from '../../../hooks/use-profile';
 import { useRouter } from 'next/navigation';
-import { translateUserObjective } from '../../../lib/user-objective';
-import { translateUserRestriction } from '../../../lib/user-restrictions';
 import { ChevronLeft } from 'lucide-react';
 import { allPlans, translatePlan } from '../../../lib/available-plans';
+import { cn } from '../../../lib/utils';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -25,15 +24,6 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     transition: { delay: custom * 0.1, duration: 0.4 },
-  }),
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: (custom: number) => ({
-    opacity: 1,
-    scale: 1,
-    transition: { delay: custom * 0.08, duration: 0.4 },
   }),
 };
 
@@ -54,7 +44,7 @@ export default function PlanPage() {
   };
 
   function handlePrev() {
-    router.push('/onboarding/step-4');
+    router.push('/onboarding/review');
   }
 
   return (
@@ -75,18 +65,20 @@ export default function PlanPage() {
       </motion.h2>
 
       <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row">
-        {allPlans.map((plan) => (
+        {allPlans.map((p) => (
           <Button
+            key={p.value}
             variant="outline"
-            className="mb-8 flex h-32 w-full max-w-sm flex-col items-start rounded-lg border-2 border-gray-200 bg-gray-50 p-6"
-            onClick={() => setPlan(plan.value)}
+            className={cn(
+              'mb-8 flex h-32 w-full max-w-sm flex-col items-start rounded-lg border-2 border-gray-200 bg-gray-50 p-6',
+              plan === p.value && 'border-primary text-primary border-2'
+            )}
+            onClick={() => setPlan(p.value)}
           >
             <div className="mb-2 flex w-full items-center justify-between gap-2">
-              <h3 className="text-primary mb-4 text-lg font-semibold">
-                {translatePlan(plan.value)}
-              </h3>
+              <h3 className="text-primary mb-4 text-lg font-semibold">{translatePlan(p.value)}</h3>
               <h3 className="text-secondary mb-4 text-lg font-bold">
-                {plan.monthlyPrice.toFixed(2)} R$/mês
+                {p.monthlyPrice.toFixed(2)} R$/mês
               </h3>
             </div>
             <motion.div
@@ -94,7 +86,7 @@ export default function PlanPage() {
               animate="visible"
               variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
             >
-              - {plan.description}
+              - {p.description}
             </motion.div>
           </Button>
         ))}
@@ -113,7 +105,7 @@ export default function PlanPage() {
           onClick={handleSubmit}
           disabled={isLoading}
         >
-          {isLoading ? 'Processando...' : 'Confirmar e Gerar Plano'}
+          {isLoading ? 'Processando...' : 'Confirmar e Iniciar'}
         </Button>
       </motion.div>
 
