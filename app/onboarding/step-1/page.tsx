@@ -2,29 +2,38 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { useOnboarding } from '@/context/OnboardingContext';
-import Input from './Input';
-import Button from './Button';
-import IconButton from './IconButton';
+import { useOnboarding } from '../../../context/OnboardingContext';
+import Input from '../../../components/Input';
+import Button from '../../../components/Button';
+import IconButton from '../../../components/IconButton';
+import { useProfileStore } from '../../../hooks/use-profile';
+import { useRouter } from 'next/navigation';
 
 export default function ProfileStep1() {
-  const { profile, updateProfile, nextStep, prevStep } = useOnboarding();
+  const router = useRouter();
+
+  const { age, setAge, name, setName } = useProfileStore();
+  const [ageInput, setAgeInput] = useState(age?.toString() || '');
+
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const age = profile.idade || '';
-  const name = profile.nome || '';
-
-  const validateAge = (value: string): string | null => {
+  function validateAge(value: string): string | null {
     const num = parseInt(value);
     if (!value) return 'Idade é obrigatória';
     if (isNaN(num) || num < 13 || num > 120) return 'Informe uma idade válida (13-120)';
     return null;
-  };
+  }
 
-  const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    updateProfile({ idade: value ? parseInt(value) : undefined });
+  function handleAgeChange(e: React.ChangeEvent<HTMLInputElement>) {
+    let value = e.target.value;
+
+    if (value.startsWith('0') && value.length > 1) {
+      value = value.slice(1);
+    }
+
+    setAgeInput(value);
+    setAge(value ? parseInt(value) : 0);
 
     const error = validateAge(value);
     if (error) {
@@ -32,11 +41,11 @@ export default function ProfileStep1() {
     } else {
       setErrors((prev) => ({ ...prev, idade: '' }));
     }
-  };
+  }
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateProfile({ nome: e.target.value });
-  };
+  function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setName(e.target.value);
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,8 +61,13 @@ export default function ProfileStep1() {
     // Simular processamento
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsSubmitting(false);
-    nextStep();
+
+    router.push('/onboarding/step-2');
   };
+
+  function prevPage() {
+    router.push('/onboarding/welcome');
+  }
 
   return (
     <motion.div
@@ -62,12 +76,10 @@ export default function ProfileStep1() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
-      {/* Indicador de progresso (passo 1 de 5) */}
       <div className="absolute top-8 text-sm text-gray-600">
         Passo <span className="font-bold text-[#0C3527]">1</span> de <span className="font-bold">5</span>
       </div>
 
-      {/* Título */}
       <motion.h2
         className="text-3xl font-bold text-[#0C3527] mb-12 text-center"
         initial={{ y: -20, opacity: 0 }}
@@ -85,17 +97,15 @@ export default function ProfileStep1() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.5 }}
       >
-        {/* Campo de Nome */}
         <div className="mb-6">
           <Input type="text" placeholder="Seu nome (opcional)" value={name} onChange={handleNameChange} fullWidth />
         </div>
 
-        {/* Campo de Idade */}
         <div className="mb-8">
           <Input
             type="number"
             placeholder="Sua idade"
-            value={age}
+            value={ageInput}
             onChange={handleAgeChange}
             min="13"
             max="120"
@@ -105,16 +115,13 @@ export default function ProfileStep1() {
           />
         </div>
 
-        {/* Botão */}
         <Button type="submit" disabled={isSubmitting || !!errors.idade} variant="primary" size="lg" fullWidth className="mt-12">
           {isSubmitting ? 'Processando...' : 'Continuar'}
         </Button>
       </motion.form>
 
-      {/* Botão Voltar - IconButton no rodapé */}
-      <IconButton onClick={prevStep} icon="arrow-left" position="bottom-left" variant="default" size="md" ariaLabel="Voltar para tela anterior" />
+      <IconButton onClick={prevPage} icon="arrow-left" position="bottom-left" variant="default" size="md" ariaLabel="Voltar para tela anterior" />
 
-      {/* Decoração de fundo */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-[#D57A4E] opacity-5 rounded-full blur-3xl pointer-events-none" />
     </motion.div>
   );

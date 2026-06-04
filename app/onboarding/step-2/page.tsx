@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useOnboarding } from '@/context/OnboardingContext';
-import Button from './Button';
-import Input from './Input';
-import IconButton from './IconButton';
+import { useOnboarding } from '../../../context/OnboardingContext';
+import Button from '../../../components/Button';
+import Input from '../../../components/Input';
+import IconButton from '../../../components/IconButton';
+import { useProfileStore } from '../../../hooks/use-profile';
+import { useRouter } from 'next/navigation';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -25,10 +27,13 @@ const itemVariants = {
   }),
 };
 
-export function ProfileStep2() {
-  const { profile, nextStep, prevStep, updateProfile } = useOnboarding();
-  const [peso, setPeso] = useState(profile.pesoKg || '');
+export default function ProfileStep2() {
+  const router = useRouter();
+
+  const { weight, setWeight } = useProfileStore();
+
   const [error, setError] = useState('');
+  const [weightInput, setWeightInput] = useState(weight?.toString() || '');
   const [isLoading, setIsLoading] = useState(false);
 
   const validatePeso = (value: string | number): boolean => {
@@ -43,24 +48,27 @@ export function ProfileStep2() {
   };
 
   const handlePesoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setPeso(value);
+    let value = e.target.value;
+
+    if (value.startsWith('0') && value.length > 1) {
+      value = value.slice(1);
+    }
+
+    setWeightInput(value);
+    setWeight(value);
+
     if (value) validatePeso(value);
   };
 
   const handleSubmit = async () => {
-    const numPeso = parseFloat(peso.toString());
-    if (!peso || isNaN(numPeso)) return;
-
     setIsLoading(true);
-    updateProfile({ pesoKg: numPeso });
 
-    if (numPeso < 20) {
+    if (parseInt(weight) < 20) {
       setError('Peso mínimo é 20kg');
       return;
     }
 
-    if (numPeso > 500) {
+    if (parseInt(weight) > 500) {
       setError('Peso máximo é 500kg');
       return;
     }
@@ -69,8 +77,12 @@ export function ProfileStep2() {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     setIsLoading(false);
-    nextStep();
+    router.push('/onboarding/step-3');
   };
+
+  function handlePrev() {
+    router.push('/onboarding/step-1');
+  }
 
   return (
     <motion.div
@@ -99,7 +111,7 @@ export function ProfileStep2() {
       <motion.div className="w-full max-w-sm space-y-8" custom={2} variants={itemVariants} initial="hidden" animate="visible">
         <Input
           type="number"
-          value={peso}
+          value={weightInput}
           onChange={handlePesoChange}
           placeholder="Seu peso (kg)"
           error={error ? error : undefined}
@@ -114,7 +126,7 @@ export function ProfileStep2() {
       </motion.div>
 
       {/* Botão de voltar */}
-      <IconButton onClick={prevStep} icon="arrow-left" position="bottom-left" variant="default" size="md" ariaLabel="Voltar para tela anterior" />
+      <IconButton onClick={handlePrev} icon="arrow-left" position="bottom-left" variant="default" size="md" ariaLabel="Voltar para tela anterior" />
     </motion.div>
   );
 }

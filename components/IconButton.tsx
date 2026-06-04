@@ -68,7 +68,7 @@ export default function IconButton({
 }: IconButtonProps) {
   const renderedIcon = typeof icon === 'string' ? iconMap[icon] : icon;
 
-  const combinedClassName = `${positionClasses[position]} ${sizeClasses[size]} ${variantClasses[variant]} rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D57A4E] ${className}`;
+  const combinedClassName = `${positionClasses[position]} ${sizeClasses[size]} ${variantClasses[variant]} rounded-full transition-colors focus:outline-none hover:cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-[#D57A4E] ${className}`;
 
   return (
     <motion.button

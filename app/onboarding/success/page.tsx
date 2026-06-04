@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useOnboarding } from '@/context/OnboardingContext';
-import Button from './Button';
+import { useOnboarding } from '../../../context/OnboardingContext';
+import Button from '../../../components/Button';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },

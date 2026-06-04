@@ -2,13 +2,16 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import Button from './Button';
+import Button from '../../../components/Button';
+import { useRouter } from 'next/navigation';
 
-interface WelcomeScreenProps {
-  onStart: () => void;
-}
+export default function WelcomeScreen() {
+  const router = useRouter();
 
-export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
+  function onStart() {
+    router.push('/onboarding/step-1');
+  }
+
   return (
     <motion.div
       className="min-h-screen flex flex-col items-center justify-center bg-white px-6"
@@ -16,7 +19,6 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
-      {/* Logo - Aumentada */}
       <motion.div
         className="mb-16"
         initial={{ scale: 0.8, opacity: 0 }}
@@ -34,7 +36,6 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
         />
       </motion.div>
 
-      {/* Proposta de Valor */}
       <motion.div
         className="text-center mb-12"
         initial={{ y: 20, opacity: 0 }}
@@ -47,14 +48,12 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
         </p>
       </motion.div>
 
-      {/* Botão Começar */}
       <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.6, duration: 0.6 }}>
         <Button onClick={onStart} size="lg" variant="primary">
           Começar
         </Button>
       </motion.div>
 
-      {/* Decoração de fundo (opcional) */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-[#D57A4E] opacity-10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#0C3527] opacity-5 rounded-full blur-3xl pointer-events-none" />
     </motion.div>
