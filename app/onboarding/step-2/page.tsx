@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Input from '../../../components/Input';
-import IconButton from '../../../components/IconButton';
 import { useProfileStore } from '../../../hooks/use-profile';
 import { useRouter } from 'next/navigation';
 import { Button } from '../../../components/ui/button';
+import { ChevronLeft } from 'lucide-react';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -141,15 +141,13 @@ export default function ProfileStep2() {
         </Button>
       </motion.div>
 
-      {/* Botão de voltar */}
-      <IconButton
+      <Button
+        className="absolute bottom-8 left-8 flex h-8 w-fit items-center gap-2 pr-6 pl-4"
         onClick={handlePrev}
-        icon="arrow-left"
-        position="bottom-left"
-        variant="default"
-        size="md"
-        ariaLabel="Voltar para tela anterior"
-      />
+      >
+        <ChevronLeft size={12} />
+        <p className="hidden sm:block">Voltar</p>
+      </Button>
     </motion.div>
   );
 }

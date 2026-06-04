@@ -3,10 +3,10 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Input from '../../../components/Input';
-import IconButton from '../../../components/IconButton';
 import { useProfileStore } from '../../../hooks/use-profile';
 import { useRouter } from 'next/navigation';
 import { Button } from '../../../components/ui/button';
+import { ChevronLeft } from 'lucide-react';
 
 export default function ProfileStep1() {
   const router = useRouter();
@@ -71,7 +71,7 @@ export default function ProfileStep1() {
     router.push('/onboarding/step-2');
   };
 
-  function prevPage() {
+  function handlePrev() {
     router.push('/onboarding/welcome');
   }
 
@@ -135,14 +135,13 @@ export default function ProfileStep1() {
         </Button>
       </motion.form>
 
-      <IconButton
-        onClick={prevPage}
-        icon="arrow-left"
-        position="bottom-left"
-        variant="default"
-        size="md"
-        ariaLabel="Voltar para tela anterior"
-      />
+      <Button
+        className="absolute bottom-8 left-8 flex h-8 w-fit items-center gap-2 pr-6 pl-4"
+        onClick={handlePrev}
+      >
+        <ChevronLeft size={12} />
+        <p className="hidden sm:block">Voltar</p>
+      </Button>
 
       <div className="pointer-events-none absolute top-0 right-0 h-32 w-32 rounded-full bg-[#D57A4E] opacity-5 blur-3xl" />
     </motion.div>
