@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import Button from '../../../components/Button';
 import { useRouter } from 'next/navigation';
+import { Button } from '../../../components/ui/button';
 
 export default function WelcomeScreen() {
   const router = useRouter();
@@ -55,7 +55,7 @@ export default function WelcomeScreen() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.6 }}
       >
-        <Button onClick={onStart} size="lg" variant="primary">
+        <Button onClick={onStart} size="lg" className="bg-primary mx-auto h-12 w-sm text-base">
           Começar
         </Button>
       </motion.div>

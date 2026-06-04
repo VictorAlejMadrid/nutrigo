@@ -1,5 +1,12 @@
 import { ObjectiveOption } from '../hooks/use-profile';
 
+export const allObjectives: ObjectiveOption[] = [
+  'weight-loss',
+  'muscle-gain',
+  'maintenance',
+  'health-and-organization',
+];
+
 export function translateUserObjective(objective: ObjectiveOption) {
   switch (objective) {
     case 'weight-loss':

@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import Button from '../../../components/Button';
+import { Button } from '../../../components/ui/button';
 import IconButton from '../../../components/IconButton';
 import { RestrictionOption, useProfileStore } from '../../../hooks/use-profile';
 import { useRouter } from 'next/navigation';
-import { cn } from '../../../lib/utils';
+import { allRestrictions, translateUserRestriction } from '../../../lib/user-restrictions';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -25,28 +25,6 @@ const itemVariants = {
     transition: { delay: custom * 0.1, duration: 0.4 },
   }),
 };
-
-const chipVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: (custom: number) => ({
-    opacity: 1,
-    scale: 1,
-    transition: { delay: custom * 0.05, duration: 0.3 },
-  }),
-  exit: {
-    opacity: 0,
-    scale: 0.8,
-    transition: { duration: 0.2 },
-  },
-};
-
-const RESTRICOES_OPTIONS = [
-  { value: 'gluten', label: 'Glúten' },
-  { value: 'lactose', label: 'Lactose' },
-  { value: 'vegetarian', label: 'Vegetariano' },
-  { value: 'vegan', label: 'Vegano' },
-  { value: 'none', label: 'Nenhuma' },
-] as { value: RestrictionOption; label: string }[];
 
 export default function ProfileStep4() {
   const router = useRouter();
@@ -81,7 +59,7 @@ export default function ProfileStep4() {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     setIsLoading(false);
-    router.push('/onboarding/step-5');
+    router.push('/onboarding/review');
   };
 
   function handlePrev() {
@@ -95,7 +73,6 @@ export default function ProfileStep4() {
       initial="hidden"
       animate="visible"
     >
-      {/* Indicador de progresso */}
       <motion.div
         className="absolute top-8 text-center text-sm text-gray-500"
         custom={0}
@@ -106,7 +83,6 @@ export default function ProfileStep4() {
         Passo 4 de 5
       </motion.div>
 
-      {/* Título */}
       <motion.h2
         className="mt-8 mb-12 text-center text-3xl font-bold text-[#0C3527]"
         custom={1}
@@ -117,28 +93,17 @@ export default function ProfileStep4() {
         Restrições alimentares
       </motion.h2>
 
-      {/* Chips de seleção */}
       <motion.div className="mb-8 w-full max-w-sm" initial="hidden" animate="visible">
-        <div className="mb-4 flex w-sm flex-wrap justify-center gap-4">
-          {RESTRICOES_OPTIONS.map((opcao, idx) => (
-            <motion.button
-              key={opcao.value}
-              custom={idx}
-              variants={chipVariants}
-              initial="hidden"
-              animate="visible"
-              onClick={() => toggleRestricao(opcao.value)}
-              className={cn(
-                'w-[45%] rounded-lg px-4 py-3 text-sm font-semibold transition-all duration-200 hover:cursor-pointer focus:ring-2 focus:ring-[#D57A4E] focus:ring-offset-2 focus:outline-none',
-                restrictions.includes(opcao.value)
-                  ? 'bg-[#D57A4E] text-white shadow-lg'
-                  : 'border-2 border-transparent bg-gray-100 text-[#0C3527] hover:border-[#D57A4E]'
-              )}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+        <div className="mb-4 flex w-sm flex-wrap justify-center gap-2">
+          {allRestrictions.map((opcao) => (
+            <Button
+              key={opcao}
+              onClick={() => toggleRestricao(opcao)}
+              variant={restrictions.includes(opcao) ? 'secondary' : 'outline'}
+              className="h-14 w-[46%] text-base"
             >
-              {opcao.label}
-            </motion.button>
+              {translateUserRestriction(opcao)}
+            </Button>
           ))}
         </div>
       </motion.div>
@@ -153,9 +118,7 @@ export default function ProfileStep4() {
       >
         <Button
           type="submit"
-          variant="primary"
-          size="lg"
-          fullWidth
+          className="h-12 w-full text-base"
           onClick={handleSubmit}
           disabled={isLoading}
         >

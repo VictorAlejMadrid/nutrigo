@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import Button from '../../../components/Button';
 import { useProfileStore } from '../../../hooks/use-profile';
+import { Button } from '../../../components/ui/button';
+import { Check, Loader2 } from 'lucide-react';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -38,14 +39,22 @@ const checkmarkVariants = {
 export default function SuccessScreen() {
   const { name, age, weight, objective } = useProfileStore();
 
+  const [fakeInitialLoading, setFakeInitialLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    // Aqui você pode adicionar lógica para redirecionar ou disparar eventos
-    // Por enquanto, apenas mostramos a tela de sucesso
+    setTimeout(() => setFakeInitialLoading(false), 3000);
   }, []);
+
+  function onClick() {
+    setIsLoading(true);
+
+    setTimeout(() => setIsLoading(false), 2000);
+  }
 
   return (
     <motion.div
-      className="flex h-screen w-full flex-col items-center justify-center from-[#0C3527] via-[#0C3527] to-[#1a4d39] px-6"
+      className="bg-primary flex h-screen w-full flex-col items-center justify-center px-6"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -86,7 +95,7 @@ export default function SuccessScreen() {
         initial="hidden"
         animate="visible"
       >
-        Perfeito!
+        Perfeito, {name}!
       </motion.h2>
 
       {/* Subtítulo */}
@@ -97,7 +106,7 @@ export default function SuccessScreen() {
         initial="hidden"
         animate="visible"
       >
-        Seu perfil foi salvo com sucesso, {name}!
+        Seu perfil foi salvo com sucesso!
       </motion.p>
 
       {/* Descrição */}
@@ -119,20 +128,27 @@ export default function SuccessScreen() {
         transition={{ delay: 0.8 }}
       >
         <div className="flex space-x-2">
-          {[0, 1, 2].map((i) => (
-            <motion.div
-              key={i}
-              className="h-3 w-3 rounded-full bg-[#D57A4E]"
-              animate={{
-                y: [0, -10, 0],
-              }}
-              transition={{
-                duration: 0.6,
-                delay: i * 0.1,
-                repeat: Infinity,
-              }}
+          {fakeInitialLoading ? (
+            [0, 1, 2].map((i) => (
+              <motion.div
+                key={i}
+                className="h-3 w-3 rounded-full bg-[#D57A4E]"
+                animate={{
+                  y: [0, -10, 0],
+                }}
+                transition={{
+                  duration: 0.6,
+                  delay: i * 0.1,
+                  repeat: Infinity,
+                }}
+              />
+            ))
+          ) : (
+            <Check
+              size={64}
+              className="text-secondary border-secondary rounded-full border-4 p-2"
             />
-          ))}
+          )}
         </div>
       </motion.div>
 
@@ -144,9 +160,9 @@ export default function SuccessScreen() {
         initial="hidden"
         animate="visible"
       >
-        <p className="mb-1">Dados coletados:</p>
-        <p>
-          {age + 'anos'} • {weight} kg • {objective}
+        <p className="mb-1">Seu perfil:</p>
+        <p className="font-medium">
+          {age + ' anos'} • {weight} kg • {objective}
         </p>
       </motion.div>
 
@@ -160,15 +176,12 @@ export default function SuccessScreen() {
       >
         <Button
           type="button"
-          variant="secondary"
-          size="lg"
-          fullWidth
-          onClick={() => {
-            // Redirecionar ou disparar ação para próximo fluxo
-            console.log('Ver plano alimentar');
-          }}
+          variant="outline"
+          className="border-primary h-14 w-full border-2 text-lg hover:scale-105"
+          onClick={onClick}
+          disabled={isLoading || fakeInitialLoading}
         >
-          Próximo: Seu Plano Alimentar
+          {isLoading && <Loader2 className="animate-spin" />} Próximo: Seu Plano Alimentar!
         </Button>
       </motion.div>
     </motion.div>

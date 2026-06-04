@@ -2,11 +2,12 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import Button from '../../../components/Button';
+import { Button } from '../../../components/ui/button';
 import IconButton from '../../../components/IconButton';
 import { useProfileStore } from '../../../hooks/use-profile';
 import { useRouter } from 'next/navigation';
 import { translateUserObjective } from '../../../lib/user-objective';
+import { translateUserRestriction } from '../../../lib/user-restrictions';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -67,6 +68,8 @@ export default function ProfileStep5() {
     );
   };
 
+  const translatedRestrictions = restrictions.map((r) => translateUserRestriction(r));
+
   return (
     <motion.div
       className="flex h-screen w-full flex-col items-center justify-center overflow-y-auto bg-white px-6 py-8"
@@ -75,7 +78,7 @@ export default function ProfileStep5() {
       animate="visible"
     >
       <motion.div
-        className="mb-6 w-full text-center text-sm text-gray-500"
+        className="absolute top-8 text-center text-sm text-gray-500"
         custom={0}
         variants={itemVariants}
         initial="hidden"
@@ -111,7 +114,7 @@ export default function ProfileStep5() {
           {formatarCampo('Idade', `${age} anos`)}
           {formatarCampo('Peso', `${weight} kg`)}
           {formatarCampo('Objetivo', translateUserObjective(objective))}
-          {formatarCampo('Restrições', restrictions.join(', '))}
+          {formatarCampo('Restrições', translatedRestrictions.join(', '))}
         </motion.div>
       </motion.div>
 
@@ -124,9 +127,7 @@ export default function ProfileStep5() {
       >
         <Button
           type="submit"
-          variant="primary"
-          size="lg"
-          fullWidth
+          className="h-14 w-full text-lg"
           onClick={handleSubmit}
           disabled={isLoading}
         >

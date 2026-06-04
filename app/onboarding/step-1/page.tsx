@@ -3,10 +3,10 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Input from '../../../components/Input';
-import Button from '../../../components/Button';
 import IconButton from '../../../components/IconButton';
 import { useProfileStore } from '../../../hooks/use-profile';
 import { useRouter } from 'next/navigation';
+import { Button } from '../../../components/ui/button';
 
 export default function ProfileStep1() {
   const router = useRouter();
@@ -82,10 +82,7 @@ export default function ProfileStep1() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
-      <div className="absolute top-8 text-sm text-gray-600">
-        Passo <span className="font-bold text-[#0C3527]">1</span> de{' '}
-        <span className="font-bold">5</span>
-      </div>
+      <div className="absolute top-8 text-sm text-gray-600">Passo 1 de 5</div>
 
       <motion.h2
         className="mb-12 text-center text-3xl font-bold text-[#0C3527]"
@@ -132,10 +129,7 @@ export default function ProfileStep1() {
         <Button
           type="submit"
           disabled={isSubmitting || !!errors.idade}
-          variant="primary"
-          size="lg"
-          fullWidth
-          className="mt-12"
+          className="mt-12 h-12 w-full text-base"
         >
           {isSubmitting ? 'Processando...' : 'Continuar'}
         </Button>

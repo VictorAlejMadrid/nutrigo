@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import IconButton from '../../../components/IconButton';
 import { useProfileStore } from '../../../hooks/use-profile';
 import { useRouter } from 'next/navigation';
+import { Button } from '../../../components/ui/button';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -133,9 +133,7 @@ export default function ProfileStep2() {
 
         <Button
           type="submit"
-          variant="primary"
-          size="lg"
-          fullWidth
+          className="h-12 w-full text-base"
           onClick={handleSubmit}
           disabled={isLoading}
         >

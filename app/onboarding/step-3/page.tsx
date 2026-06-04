@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import Button from '../../../components/Button';
 import IconButton from '../../../components/IconButton';
 import { ObjectiveOption, useProfileStore } from '../../../hooks/use-profile';
 import { useRouter } from 'next/navigation';
-import { cn } from '../../../lib/utils';
+import { Button } from '../../../components/ui/button';
+import { allObjectives, translateUserObjective } from '../../../lib/user-objective';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -25,22 +25,6 @@ const itemVariants = {
     transition: { delay: custom * 0.1, duration: 0.4 },
   }),
 };
-
-const optionVariants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: (custom: number) => ({
-    opacity: 1,
-    scale: 1,
-    transition: { delay: custom * 0.05, duration: 0.3 },
-  }),
-};
-
-const OPTIONS = [
-  { value: 'weight-loss', label: 'Emagrecimento' },
-  { value: 'muscle-gain', label: 'Ganho de Massa' },
-  { value: 'maintenance', label: 'Manutenção' },
-  { value: 'health-and-organization', label: 'Saúde e Organização' },
-] as { value: ObjectiveOption; label: string }[];
 
 export default function ProfileStep3() {
   const router = useRouter();
@@ -98,25 +82,15 @@ export default function ProfileStep3() {
         initial="hidden"
         animate="visible"
       >
-        {OPTIONS.map((option, idx) => (
-          <motion.button
-            key={option.value}
-            custom={idx}
-            variants={optionVariants}
-            initial="hidden"
-            animate="visible"
-            onClick={() => handleSelectObjetivo(option.value)}
-            className={cn(
-              'rounded-lg px-4 py-4 text-lg font-semibold transition-all duration-200 hover:cursor-pointer focus:ring-2 focus:ring-[#D57A4E] focus:ring-offset-2 focus:outline-none',
-              objective === option.value
-                ? 'bg-[#D57A4E] text-white shadow-lg'
-                : 'border-2 border-transparent bg-gray-100 text-[#0C3527] hover:border-[#D57A4E]'
-            )}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+        {allObjectives.map((option) => (
+          <Button
+            key={option}
+            onClick={() => handleSelectObjetivo(option)}
+            variant={objective === option ? 'secondary' : 'outline'}
+            className="h-14 w-full text-lg"
           >
-            {option.label}
-          </motion.button>
+            {translateUserObjective(option)}
+          </Button>
         ))}
       </motion.div>
 
@@ -129,9 +103,7 @@ export default function ProfileStep3() {
       >
         <Button
           type="submit"
-          variant="primary"
-          size="lg"
-          fullWidth
+          className="h-12 w-full text-base"
           onClick={handleSubmit}
           disabled={!objective || isLoading}
         >
