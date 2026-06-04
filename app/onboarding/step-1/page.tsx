@@ -43,25 +43,26 @@ export default function ProfileStep1() {
   }
 
   function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setName(e.target.value.trim());
+    setName(e.target.value);
+
+    if (!name || name.trim() === '') {
+      setErrors({ name: 'Informe seu nome' });
+      setIsSubmitting(false);
+    } else {
+      setErrors({ name: '' });
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    if (!name || name.trim() === '') {
-      setErrors({ name: 'Informe seu nome' });
+    if (errors.name || errors.idade) {
       setIsSubmitting(false);
       return;
     }
 
-    const ageError = validateAge(age.toString());
-    if (ageError) {
-      setErrors({ idade: ageError });
-      setIsSubmitting(false);
-      return;
-    }
+    setName(name.trim());
 
     // Simular processamento
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -109,6 +110,8 @@ export default function ProfileStep1() {
             placeholder="Seu nome"
             value={name}
             onChange={handleNameChange}
+            error={errors.name}
+            autoFocus
             fullWidth
           />
         </div>
@@ -122,7 +125,6 @@ export default function ProfileStep1() {
             min="13"
             max="120"
             error={errors.idade}
-            autoFocus
             fullWidth
           />
         </div>

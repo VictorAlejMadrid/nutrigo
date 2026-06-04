@@ -20,7 +20,7 @@ export default function WelcomeScreen() {
       transition={{ duration: 0.6 }}
     >
       <motion.div
-        className="mb-16"
+        className="mb-16 flex flex-col items-center"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
@@ -34,6 +34,8 @@ export default function WelcomeScreen() {
           className="object-contain"
           style={{ width: 'auto', height: 'auto' }}
         />
+
+        <p className="mb-1 text-2xl font-bold text-[#0C3527]">Da dieta ao mercado em um clique</p>
       </motion.div>
 
       <motion.div
@@ -42,9 +44,6 @@ export default function WelcomeScreen() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.6 }}
       >
-        <p className="mb-3 text-2xl font-semibold text-[#0C3527]">
-          Da dieta ao mercado em um clique
-        </p>
         <p className="mx-auto max-w-sm text-base leading-relaxed text-gray-600">
           Crie dietas personalizadas e transforme-as em listas de compras práticas. Organize sua
           alimentação saudável sem complicações.
