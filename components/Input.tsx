@@ -1,6 +1,5 @@
 'use client';
 
-import { ReactNode } from 'react';
 
 interface InputProps {
   type?: 'text' | 'number' | 'email' | 'password' | 'tel' | 'date';

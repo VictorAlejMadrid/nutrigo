@@ -2,11 +2,9 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useOnboarding } from '../../../context/OnboardingContext';
 import Button from '../../../components/Button';
 import IconButton from '../../../components/IconButton';
 import { useProfileStore } from '../../../hooks/use-profile';
-import { cn } from '../../../lib/utils';
 import { useRouter } from 'next/navigation';
 
 const containerVariants = {
@@ -56,8 +54,7 @@ export default function ProfileStep5() {
     router.push('/onboarding/step-4');
   }
 
-  const formatarCampo = (label: string, valor: any) => {
-    if (!valor && valor !== 0) return null;
+  const formatarCampo = (label: string, valor: string) => {
     return (
       <motion.div className="flex justify-between py-3 border-b border-gray-200 last:border-b-0" variants={cardVariants}>
         <span className="text-gray-600">{label}:</span>
@@ -94,7 +91,7 @@ export default function ProfileStep5() {
           {formatarCampo('Idade', `${age} anos`)}
           {formatarCampo('Peso', `${weight} kg`)}
           {formatarCampo('Objetivo', objective)}
-          {formatarCampo('Restrições', restrictions)}
+          {formatarCampo('Restrições', restrictions.join(', '))}
         </motion.div>
       </motion.div>
 

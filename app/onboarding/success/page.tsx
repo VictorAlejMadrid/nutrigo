@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useOnboarding } from '../../../context/OnboardingContext';
 import Button from '../../../components/Button';
+import { useProfileStore } from '../../../hooks/use-profile';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -36,14 +36,12 @@ const checkmarkVariants = {
 };
 
 export default function SuccessScreen() {
-  const { profile } = useOnboarding();
+  const { name, age, weight, objective } = useProfileStore();
 
   useEffect(() => {
     // Aqui você pode adicionar lógica para redirecionar ou disparar eventos
     // Por enquanto, apenas mostramos a tela de sucesso
   }, []);
-
-  const nomeUsuario = profile.nome || 'Usuário';
 
   return (
     <motion.div
@@ -87,7 +85,7 @@ export default function SuccessScreen() {
 
       {/* Subtítulo */}
       <motion.p className="text-xl text-white text-center mb-2 opacity-90" custom={2} variants={itemVariants} initial="hidden" animate="visible">
-        Seu perfil foi salvo com sucesso, {nomeUsuario}!
+        Seu perfil foi salvo com sucesso, {name}!
       </motion.p>
 
       {/* Descrição */}
@@ -125,8 +123,7 @@ export default function SuccessScreen() {
       <motion.div className="text-center text-white opacity-75 text-sm mt-8" custom={4} variants={itemVariants} initial="hidden" animate="visible">
         <p className="mb-1">Dados coletados:</p>
         <p>
-          {profile.idade}
-          {profile.idade && ' anos'} • {profile.pesoKg} kg • {profile.objetivo}
+          {age + 'anos'} • {weight} kg • {objective}
         </p>
       </motion.div>
 

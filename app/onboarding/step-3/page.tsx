@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useOnboarding } from '../../../context/OnboardingContext';
 import Button from '../../../components/Button';
 import IconButton from '../../../components/IconButton';
 import { ObjectiveOption, useProfileStore } from '../../../hooks/use-profile';

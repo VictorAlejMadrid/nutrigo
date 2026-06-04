@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
@@ -29,6 +30,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "eslint-plugin-unused-imports": "^4.4.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

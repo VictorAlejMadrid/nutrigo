@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { useOnboarding } from '../../../context/OnboardingContext';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import IconButton from '../../../components/IconButton';
@@ -44,12 +43,18 @@ export default function ProfileStep1() {
   }
 
   function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setName(e.target.value);
+    setName(e.target.value.trim());
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    if (!name || name.trim() === '') {
+      setErrors({ name: 'Informe seu nome' });
+      setIsSubmitting(false);
+      return;
+    }
 
     const ageError = validateAge(age.toString());
     if (ageError) {
@@ -98,7 +103,7 @@ export default function ProfileStep1() {
         transition={{ delay: 0.3, duration: 0.5 }}
       >
         <div className="mb-6">
-          <Input type="text" placeholder="Seu nome (opcional)" value={name} onChange={handleNameChange} fullWidth />
+          <Input type="text" placeholder="Seu nome" value={name} onChange={handleNameChange} fullWidth />
         </div>
 
         <div className="mb-8">

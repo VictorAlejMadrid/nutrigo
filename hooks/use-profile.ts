@@ -5,7 +5,7 @@ export type RestrictionOption = 'gluten' | 'lactose' | 'vegan' | 'vegetarian' | 
 export type PlanOption = 'yearly' | 'monthly' | 'free';
 
 type ProfileStore = {
-  name?: string;
+  name: string;
   setName: (name: string) => void;
 
   age: number;
@@ -25,7 +25,7 @@ type ProfileStore = {
 };
 
 export const useProfileStore = create<ProfileStore>()((set) => ({
-  name: undefined,
+  name: '',
   setName: (name: string) => set({ name }),
 
   age: 0,

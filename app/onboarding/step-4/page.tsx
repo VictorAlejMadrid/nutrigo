@@ -2,9 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useOnboarding } from '../../../context/OnboardingContext';
 import Button from '../../../components/Button';
-import Input from '../../../components/Input';
 import IconButton from '../../../components/IconButton';
 import { RestrictionOption, useProfileStore } from '../../../hooks/use-profile';
 import { useRouter } from 'next/navigation';
@@ -54,8 +52,6 @@ export default function ProfileStep4() {
   const router = useRouter();
 
   const { restrictions, setRestrictions } = useProfileStore();
-
-  const { nextStep, prevStep } = useOnboarding();
 
   const [isLoading, setIsLoading] = useState(false);
 
