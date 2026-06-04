@@ -6,6 +6,7 @@ import Button from '../../../components/Button';
 import IconButton from '../../../components/IconButton';
 import { useProfileStore } from '../../../hooks/use-profile';
 import { useRouter } from 'next/navigation';
+import { translateUserObjective } from '../../../lib/user-objective';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -109,7 +110,7 @@ export default function ProfileStep5() {
           {formatarCampo('Nome', name)}
           {formatarCampo('Idade', `${age} anos`)}
           {formatarCampo('Peso', `${weight} kg`)}
-          {formatarCampo('Objetivo', objective)}
+          {formatarCampo('Objetivo', translateUserObjective(objective))}
           {formatarCampo('Restrições', restrictions.join(', '))}
         </motion.div>
       </motion.div>
