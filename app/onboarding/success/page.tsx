@@ -45,7 +45,7 @@ export default function SuccessScreen() {
 
   return (
     <motion.div
-      className="w-full h-screen  from-[#0C3527] via-[#0C3527] to-[#1a4d39] flex flex-col items-center justify-center px-6"
+      className="flex h-screen w-full flex-col items-center justify-center from-[#0C3527] via-[#0C3527] to-[#1a4d39] px-6"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -79,18 +79,30 @@ export default function SuccessScreen() {
       </motion.div>
 
       {/* Título */}
-      <motion.h2 className="text-4xl font-bold text-white text-center mb-4" custom={1} variants={itemVariants} initial="hidden" animate="visible">
+      <motion.h2
+        className="mb-4 text-center text-4xl font-bold text-white"
+        custom={1}
+        variants={itemVariants}
+        initial="hidden"
+        animate="visible"
+      >
         Perfeito!
       </motion.h2>
 
       {/* Subtítulo */}
-      <motion.p className="text-xl text-white text-center mb-2 opacity-90" custom={2} variants={itemVariants} initial="hidden" animate="visible">
+      <motion.p
+        className="mb-2 text-center text-xl text-white opacity-90"
+        custom={2}
+        variants={itemVariants}
+        initial="hidden"
+        animate="visible"
+      >
         Seu perfil foi salvo com sucesso, {name}!
       </motion.p>
 
       {/* Descrição */}
       <motion.p
-        className="text-lg text-white text-center mb-12 opacity-75 max-w-md"
+        className="mb-12 max-w-md text-center text-lg text-white opacity-75"
         custom={3}
         variants={itemVariants}
         initial="hidden"
@@ -100,12 +112,17 @@ export default function SuccessScreen() {
       </motion.p>
 
       {/* Loading animation */}
-      <motion.div className="flex justify-center items-center mb-12" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}>
+      <motion.div
+        className="mb-12 flex items-center justify-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+      >
         <div className="flex space-x-2">
           {[0, 1, 2].map((i) => (
             <motion.div
               key={i}
-              className="w-3 h-3 bg-[#D57A4E] rounded-full"
+              className="h-3 w-3 rounded-full bg-[#D57A4E]"
               animate={{
                 y: [0, -10, 0],
               }}
@@ -120,7 +137,13 @@ export default function SuccessScreen() {
       </motion.div>
 
       {/* Informações do perfil (opcional) */}
-      <motion.div className="text-center text-white opacity-75 text-sm mt-8" custom={4} variants={itemVariants} initial="hidden" animate="visible">
+      <motion.div
+        className="mt-8 text-center text-sm text-white opacity-75"
+        custom={4}
+        variants={itemVariants}
+        initial="hidden"
+        animate="visible"
+      >
         <p className="mb-1">Dados coletados:</p>
         <p>
           {age + 'anos'} • {weight} kg • {objective}
@@ -128,7 +151,13 @@ export default function SuccessScreen() {
       </motion.div>
 
       {/* Botão (será habilitado quando o plano estiver pronto) */}
-      <motion.div className="mt-12 w-full max-w-sm" custom={5} variants={itemVariants} initial="hidden" animate="visible">
+      <motion.div
+        className="mt-12 w-full max-w-sm"
+        custom={5}
+        variants={itemVariants}
+        initial="hidden"
+        animate="visible"
+      >
         <Button
           type="button"
           variant="secondary"

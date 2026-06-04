@@ -1,6 +1,5 @@
 'use client';
 
-
 interface InputProps {
   type?: 'text' | 'number' | 'email' | 'password' | 'tel' | 'date';
   placeholder?: string;
@@ -36,7 +35,8 @@ export default function Input({
   fullWidth = false,
   className = '',
 }: InputProps) {
-  const baseStyles = 'px-4 py-3 bg-white text-center text-lg text-gray-900 focus:outline-none transition border-b-2 placeholder:text-gray-500';
+  const baseStyles =
+    'px-4 py-3 bg-white text-center text-lg text-gray-900 focus:outline-none transition border-b-2 placeholder:text-gray-500';
 
   const borderStyles = error ? 'border-red-500' : 'border-[#D57A4E]';
   const disabledStyles = disabled ? 'opacity-50 cursor-not-allowed' : '';
@@ -47,7 +47,7 @@ export default function Input({
   return (
     <div className={`flex flex-col ${fullWidth ? 'w-full' : ''}`}>
       {label && (
-        <label className="text-sm font-semibold text-[#0C3527] mb-2">
+        <label className="mb-2 text-sm font-semibold text-[#0C3527]">
           {label}
           {required && <span className="text-red-500">*</span>}
         </label>
@@ -67,9 +67,9 @@ export default function Input({
         className={combinedClassName}
       />
 
-      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+      {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
 
-      {helperText && !error && <p className="text-gray-500 text-sm mt-2">{helperText}</p>}
+      {helperText && !error && <p className="mt-2 text-sm text-gray-500">{helperText}</p>}
     </div>
   );
 }

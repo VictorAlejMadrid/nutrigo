@@ -94,8 +94,16 @@ Exemplo mínimo de perfis de dieta mock (sumário):
 
 ```json
 [
-  { "id": "emagrecimento", "title": "Emagrecimento", "summary": "Déficit calórico moderado, 3 refeições + lanches" },
-  { "id": "hipertrofia", "title": "Hipertrofia", "summary": "Aumento de calorias com foco em proteína" },
+  {
+    "id": "emagrecimento",
+    "title": "Emagrecimento",
+    "summary": "Déficit calórico moderado, 3 refeições + lanches"
+  },
+  {
+    "id": "hipertrofia",
+    "title": "Hipertrofia",
+    "summary": "Aumento de calorias com foco em proteína"
+  },
   { "id": "manutencao", "title": "Manutenção", "summary": "Calorias de manutenção e balanceamento" }
 ]
 ```

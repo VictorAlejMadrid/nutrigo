@@ -90,19 +90,25 @@ export default function ProfileStep4() {
 
   return (
     <motion.div
-      className="w-full h-screen bg-white flex flex-col items-center justify-center px-6"
+      className="flex h-screen w-full flex-col items-center justify-center bg-white px-6"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       {/* Indicador de progresso */}
-      <motion.div className="absolute top-8 text-center text-gray-500 text-sm" custom={0} variants={itemVariants} initial="hidden" animate="visible">
+      <motion.div
+        className="absolute top-8 text-center text-sm text-gray-500"
+        custom={0}
+        variants={itemVariants}
+        initial="hidden"
+        animate="visible"
+      >
         Passo 4 de 5
       </motion.div>
 
       {/* Título */}
       <motion.h2
-        className="text-3xl font-bold text-center mb-12 mt-8 text-[#0C3527]"
+        className="mt-8 mb-12 text-center text-3xl font-bold text-[#0C3527]"
         custom={1}
         variants={itemVariants}
         initial="hidden"
@@ -112,8 +118,8 @@ export default function ProfileStep4() {
       </motion.h2>
 
       {/* Chips de seleção */}
-      <motion.div className="w-full max-w-sm mb-8" initial="hidden" animate="visible">
-        <div className="flex flex-wrap w-sm justify-center gap-4 mb-4">
+      <motion.div className="mb-8 w-full max-w-sm" initial="hidden" animate="visible">
+        <div className="mb-4 flex w-sm flex-wrap justify-center gap-4">
           {RESTRICOES_OPTIONS.map((opcao, idx) => (
             <motion.button
               key={opcao.value}
@@ -123,10 +129,10 @@ export default function ProfileStep4() {
               animate="visible"
               onClick={() => toggleRestricao(opcao.value)}
               className={cn(
-                'py-3 px-4 w-[45%] hover:cursor-pointer rounded-lg font-semibold text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D57A4E]',
+                'w-[45%] rounded-lg px-4 py-3 text-sm font-semibold transition-all duration-200 hover:cursor-pointer focus:ring-2 focus:ring-[#D57A4E] focus:ring-offset-2 focus:outline-none',
                 restrictions.includes(opcao.value)
                   ? 'bg-[#D57A4E] text-white shadow-lg'
-                  : 'bg-gray-100 text-[#0C3527] border-2 border-transparent hover:border-[#D57A4E]',
+                  : 'border-2 border-transparent bg-gray-100 text-[#0C3527] hover:border-[#D57A4E]'
               )}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -138,14 +144,34 @@ export default function ProfileStep4() {
       </motion.div>
 
       {/* Botão de continuar */}
-      <motion.div className="w-full max-w-sm" custom={6} variants={itemVariants} initial="hidden" animate="visible">
-        <Button type="submit" variant="primary" size="lg" fullWidth onClick={handleSubmit} disabled={isLoading}>
+      <motion.div
+        className="w-full max-w-sm"
+        custom={6}
+        variants={itemVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <Button
+          type="submit"
+          variant="primary"
+          size="lg"
+          fullWidth
+          onClick={handleSubmit}
+          disabled={isLoading}
+        >
           {isLoading ? 'Carregando...' : 'Continuar'}
         </Button>
       </motion.div>
 
       {/* Botão de voltar */}
-      <IconButton onClick={handlePrev} icon="arrow-left" position="bottom-left" variant="default" size="md" ariaLabel="Voltar para tela anterior" />
+      <IconButton
+        onClick={handlePrev}
+        icon="arrow-left"
+        position="bottom-left"
+        variant="default"
+        size="md"
+        ariaLabel="Voltar para tela anterior"
+      />
     </motion.div>
   );
 }

@@ -76,17 +76,18 @@ export default function ProfileStep1() {
 
   return (
     <motion.div
-      className="min-h-screen flex flex-col items-center justify-center bg-white px-6"
+      className="flex min-h-screen flex-col items-center justify-center bg-white px-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
       <div className="absolute top-8 text-sm text-gray-600">
-        Passo <span className="font-bold text-[#0C3527]">1</span> de <span className="font-bold">5</span>
+        Passo <span className="font-bold text-[#0C3527]">1</span> de{' '}
+        <span className="font-bold">5</span>
       </div>
 
       <motion.h2
-        className="text-3xl font-bold text-[#0C3527] mb-12 text-center"
+        className="mb-12 text-center text-3xl font-bold text-[#0C3527]"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
@@ -103,7 +104,13 @@ export default function ProfileStep1() {
         transition={{ delay: 0.3, duration: 0.5 }}
       >
         <div className="mb-6">
-          <Input type="text" placeholder="Seu nome" value={name} onChange={handleNameChange} fullWidth />
+          <Input
+            type="text"
+            placeholder="Seu nome"
+            value={name}
+            onChange={handleNameChange}
+            fullWidth
+          />
         </div>
 
         <div className="mb-8">
@@ -120,14 +127,28 @@ export default function ProfileStep1() {
           />
         </div>
 
-        <Button type="submit" disabled={isSubmitting || !!errors.idade} variant="primary" size="lg" fullWidth className="mt-12">
+        <Button
+          type="submit"
+          disabled={isSubmitting || !!errors.idade}
+          variant="primary"
+          size="lg"
+          fullWidth
+          className="mt-12"
+        >
           {isSubmitting ? 'Processando...' : 'Continuar'}
         </Button>
       </motion.form>
 
-      <IconButton onClick={prevPage} icon="arrow-left" position="bottom-left" variant="default" size="md" ariaLabel="Voltar para tela anterior" />
+      <IconButton
+        onClick={prevPage}
+        icon="arrow-left"
+        position="bottom-left"
+        variant="default"
+        size="md"
+        ariaLabel="Voltar para tela anterior"
+      />
 
-      <div className="absolute top-0 right-0 w-32 h-32 bg-[#D57A4E] opacity-5 rounded-full blur-3xl pointer-events-none" />
+      <div className="pointer-events-none absolute top-0 right-0 h-32 w-32 rounded-full bg-[#D57A4E] opacity-5 blur-3xl" />
     </motion.div>
   );
 }

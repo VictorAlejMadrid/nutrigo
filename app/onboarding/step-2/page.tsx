@@ -85,19 +85,25 @@ export default function ProfileStep2() {
 
   return (
     <motion.div
-      className="w-full h-screen bg-white flex flex-col items-center justify-center px-6"
+      className="flex h-screen w-full flex-col items-center justify-center bg-white px-6"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       {/* Indicador de progresso */}
-      <motion.div className="absolute top-8 text-center text-gray-500 text-sm" custom={0} variants={itemVariants} initial="hidden" animate="visible">
+      <motion.div
+        className="absolute top-8 text-center text-sm text-gray-500"
+        custom={0}
+        variants={itemVariants}
+        initial="hidden"
+        animate="visible"
+      >
         Passo 2 de 5
       </motion.div>
 
       {/* Título */}
       <motion.h2
-        className="text-3xl font-bold text-center mb-12 mt-8 text-[#0C3527]"
+        className="mt-8 mb-12 text-center text-3xl font-bold text-[#0C3527]"
         custom={1}
         variants={itemVariants}
         initial="hidden"
@@ -107,7 +113,13 @@ export default function ProfileStep2() {
       </motion.h2>
 
       {/* Formulário */}
-      <motion.div className="w-full max-w-sm space-y-8" custom={2} variants={itemVariants} initial="hidden" animate="visible">
+      <motion.div
+        className="w-full max-w-sm space-y-8"
+        custom={2}
+        variants={itemVariants}
+        initial="hidden"
+        animate="visible"
+      >
         <Input
           type="number"
           value={weightInput}
@@ -119,13 +131,27 @@ export default function ProfileStep2() {
           fullWidth
         />
 
-        <Button type="submit" variant="primary" size="lg" fullWidth onClick={handleSubmit} disabled={isLoading}>
+        <Button
+          type="submit"
+          variant="primary"
+          size="lg"
+          fullWidth
+          onClick={handleSubmit}
+          disabled={isLoading}
+        >
           {isLoading ? 'Carregando...' : 'Continuar'}
         </Button>
       </motion.div>
 
       {/* Botão de voltar */}
-      <IconButton onClick={handlePrev} icon="arrow-left" position="bottom-left" variant="default" size="md" ariaLabel="Voltar para tela anterior" />
+      <IconButton
+        onClick={handlePrev}
+        icon="arrow-left"
+        position="bottom-left"
+        variant="default"
+        size="md"
+        ariaLabel="Voltar para tela anterior"
+      />
     </motion.div>
   );
 }

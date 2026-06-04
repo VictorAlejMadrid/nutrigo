@@ -14,7 +14,7 @@ export default function WelcomeScreen() {
 
   return (
     <motion.div
-      className="min-h-screen flex flex-col items-center justify-center bg-white px-6"
+      className="flex min-h-screen flex-col items-center justify-center bg-white px-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
@@ -37,25 +37,32 @@ export default function WelcomeScreen() {
       </motion.div>
 
       <motion.div
-        className="text-center mb-12"
+        className="mb-12 text-center"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.6 }}
       >
-        <p className="text-2xl font-semibold text-[#0C3527] mb-3">Da dieta ao mercado em um clique</p>
-        <p className="text-base text-gray-600 max-w-sm mx-auto leading-relaxed">
-          Crie dietas personalizadas e transforme-as em listas de compras práticas. Organize sua alimentação saudável sem complicações.
+        <p className="mb-3 text-2xl font-semibold text-[#0C3527]">
+          Da dieta ao mercado em um clique
+        </p>
+        <p className="mx-auto max-w-sm text-base leading-relaxed text-gray-600">
+          Crie dietas personalizadas e transforme-as em listas de compras práticas. Organize sua
+          alimentação saudável sem complicações.
         </p>
       </motion.div>
 
-      <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.6, duration: 0.6 }}>
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.6, duration: 0.6 }}
+      >
         <Button onClick={onStart} size="lg" variant="primary">
           Começar
         </Button>
       </motion.div>
 
-      <div className="absolute top-0 right-0 w-32 h-32 bg-[#D57A4E] opacity-10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#0C3527] opacity-5 rounded-full blur-3xl pointer-events-none" />
+      <div className="pointer-events-none absolute top-0 right-0 h-32 w-32 rounded-full bg-[#D57A4E] opacity-10 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-40 w-40 rounded-full bg-[#0C3527] opacity-5 blur-3xl" />
     </motion.div>
   );
 }

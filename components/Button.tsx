@@ -24,11 +24,13 @@ export default function Button({
   fullWidth = false,
   className = '',
 }: ButtonProps) {
-  const baseStyles = 'font-bold rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-2';
+  const baseStyles =
+    'font-bold rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-2';
 
   const variantStyles = {
     primary: 'bg-[#D57A4E] text-white hover:shadow-lg focus:ring-[#D57A4E]',
-    secondary: 'bg-white text-[#0C3527] border-2 border-[#0C3527] hover:bg-[#0C3527] hover:text-white focus:ring-[#0C3527]',
+    secondary:
+      'bg-white text-[#0C3527] border-2 border-[#0C3527] hover:bg-[#0C3527] hover:text-white focus:ring-[#0C3527]',
     danger: 'bg-red-500 text-white hover:shadow-lg focus:ring-red-500',
   };
 

@@ -1,0 +1,22 @@
+# Ignore artifacts
+.next
+out
+build
+dist
+
+# Ignore all "node_modules" folders
+node_modules
+
+# Ignore lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# OS files
+.DS_Store
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo

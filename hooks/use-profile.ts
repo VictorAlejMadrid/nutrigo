@@ -1,6 +1,10 @@
 import { create } from 'zustand';
 
-export type ObjectiveOption = 'weight-loss' | 'muscle-gain' | 'maintenance' | 'health-and-organization';
+export type ObjectiveOption =
+  | 'weight-loss'
+  | 'muscle-gain'
+  | 'maintenance'
+  | 'health-and-organization';
 export type RestrictionOption = 'gluten' | 'lactose' | 'vegan' | 'vegetarian' | 'none';
 export type PlanOption = 'yearly' | 'monthly' | 'free';
 
