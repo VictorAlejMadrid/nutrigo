@@ -142,7 +142,7 @@ export default function ProfileStep2() {
       </motion.div>
 
       <Button
-        className="absolute bottom-8 left-8 flex h-8 w-fit items-center gap-2 pr-6 pl-4"
+        className="absolute bottom-8 left-8 flex h-8 w-fit items-center gap-2 rounded-full pr-6 pl-4"
         onClick={handlePrev}
       >
         <ChevronLeft size={12} />

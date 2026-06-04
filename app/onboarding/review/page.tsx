@@ -49,7 +49,7 @@ export default function ProfileStep5() {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     setIsLoading(false);
-    router.push('/onboarding/success');
+    router.push('/onboarding/plan');
   };
 
   function handlePrev() {
@@ -136,7 +136,7 @@ export default function ProfileStep5() {
       </motion.div>
 
       <Button
-        className="absolute bottom-8 left-8 flex h-8 w-fit items-center gap-2 pr-6 pl-4"
+        className="absolute bottom-8 left-8 flex h-8 w-fit items-center gap-2 rounded-full pr-6 pl-4"
         onClick={handlePrev}
       >
         <ChevronLeft size={12} />
