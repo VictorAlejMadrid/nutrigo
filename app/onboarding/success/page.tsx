@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useProfileStore } from '../../../hooks/use-profile';
 import { Button } from '../../../components/ui/button';
 import { Check, Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -37,6 +38,7 @@ const checkmarkVariants = {
 };
 
 export default function SuccessScreen() {
+  const router = useRouter();
   const { name, age, weight, objective } = useProfileStore();
 
   const [fakeInitialLoading, setFakeInitialLoading] = useState(true);
@@ -49,7 +51,9 @@ export default function SuccessScreen() {
   function onClick() {
     setIsLoading(true);
 
-    setTimeout(() => setIsLoading(false), 2000);
+    setTimeout(() => {
+      router.push('/');
+    }, 2000);
   }
 
   return (
