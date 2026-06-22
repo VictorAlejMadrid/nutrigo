@@ -49,7 +49,7 @@ export default function ProfileStep5() {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     setIsLoading(false);
-    router.push('/onboarding/plan');
+    router.push('/onboarding/success');
   };
 
   function handlePrev() {

@@ -52,7 +52,7 @@ export default function SuccessScreen() {
     setIsLoading(true);
 
     setTimeout(() => {
-      router.push('/');
+      router.push('/diet/plan');
     }, 2000);
   }
 
