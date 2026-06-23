@@ -32,7 +32,6 @@ export default function WelcomeScreen() {
           height={220}
           priority
           className="max-w-xl object-contain"
-          style={{ width: 'auto', height: 'auto' }}
         />
 
         <p className="mb-1 text-center text-2xl font-bold text-[#0C3527]">
