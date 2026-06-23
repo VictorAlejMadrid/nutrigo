@@ -6,6 +6,7 @@ import { useProfileStore } from '../../../hooks/use-profile';
 import { Button } from '../../../components/ui/button';
 import { Check, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { translateUserObjective } from '../../../lib/user-objective';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -166,7 +167,7 @@ export default function SuccessScreen() {
       >
         <p className="mb-1">Seu perfil:</p>
         <p className="font-medium">
-          {age + ' anos'} • {weight} kg • {objective}
+          {age + ' anos'} • {weight} kg • {translateUserObjective(objective)}
         </p>
       </motion.div>
 
