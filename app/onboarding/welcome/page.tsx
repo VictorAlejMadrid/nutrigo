@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { Button } from '../../../components/ui/button';
-import imageUrl from '/public/logo.png';
+import imageUrl from '../../public/logo.png';
 
 export default function WelcomeScreen() {
   const router = useRouter();
