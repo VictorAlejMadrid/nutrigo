@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { Button } from '../../../components/ui/button';
-import imageUrl from '../../public/logo.png';
 
 export default function WelcomeScreen() {
   const router = useRouter();
@@ -27,7 +26,7 @@ export default function WelcomeScreen() {
         transition={{ delay: 0.2, duration: 0.5 }}
       >
         <Image
-          src={imageUrl}
+          src={'/nutrigo/logo.png'}
           alt="NutriGO Logo"
           width={220}
           height={220}
