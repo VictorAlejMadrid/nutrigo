@@ -31,11 +31,13 @@ export default function WelcomeScreen() {
           width={220}
           height={220}
           priority
-          className="object-contain"
+          className="max-w-xl object-contain"
           style={{ width: 'auto', height: 'auto' }}
         />
 
-        <p className="mb-1 text-2xl font-bold text-[#0C3527]">Da dieta ao mercado em um clique</p>
+        <p className="mb-1 text-center text-2xl font-bold text-[#0C3527]">
+          Da dieta ao mercado em um clique
+        </p>
       </motion.div>
 
       <motion.div
